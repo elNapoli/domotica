@@ -5,10 +5,11 @@ from .thingsboard_mqtt import ThingsBoardMQTT  # Importa la clase
 import time
 
 class Device:
-    def __init__(self, access_token, pin, host='192.168.1.90'):
+    def __init__(self, access_token, pin, sleep_time=10, host='192.168.1.90'):
         self.access_token = access_token
         self.pin = pin
         self.host = host
+        self.sleep_time = sleep_time
         
         # Configurar el cliente MQTT
         self.mqtt_client = ThingsBoardMQTT(self.access_token, host=self.host)
@@ -53,7 +54,7 @@ class Device:
                 sensor_data = self.read_sensor_data()
                 if sensor_data:
                     self.publish_data(sensor_data)
-                time.sleep(10)  # Esperar 10 segundos antes de la siguiente lectura
+                time.sleep(self.sleep_time) 
         except KeyboardInterrupt:
             print("\nInterrupción manual: Deteniendo cliente MQTT.")
         finally:
