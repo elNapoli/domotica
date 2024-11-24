@@ -1,4 +1,4 @@
 celery
 redis
--e /home/elnapoli/domotica/custom_modules/domotica-module
+-e /custom_modules/domotica-module
 

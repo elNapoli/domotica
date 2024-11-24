@@ -7,9 +7,7 @@ if __name__ == "__main__":
     pin = board.D15
     device = Device(access_token, pin)
     device.connect_mqtt()
-    while True:
-        sensor_data = device.read_sensor_data()
-        if sensor_data:
-            device.publish_data(sensor_data)
-        time.sleep(10)  
+    sensor_data = device.read_sensor_data()
+    if sensor_data:
+        device.publish_data(sensor_data)
 
