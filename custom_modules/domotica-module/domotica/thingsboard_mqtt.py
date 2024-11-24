@@ -1,7 +1,7 @@
-# thingsboard_mqtt.py
 import paho.mqtt.client as mqtt
 import json
 import random  # Para generar valores aleatorios de temperatura y humedad
+from datetime import datetime  # Para obtener la hora actual
 
 class ThingsBoardMQTT:
     def __init__(self, access_token, host='192.168.1.90'):
@@ -27,7 +27,10 @@ class ThingsBoardMQTT:
             try:
                 # Publicamos los datos en el tópico de ThingsBoard
                 self.client.publish('v1/devices/me/telemetry', json.dumps(sensor_data), 1)
-                print(f"Datos publicados: {sensor_data}")
+                
+                # Obtener la hora actual para mostrar en el print
+                timestamp = datetime.now().isoformat()
+                print(f"Datos publicados a {timestamp}: {sensor_data}")
             except Exception as e:
                 print(f"Error al publicar los datos: {e}")
         else:
