@@ -1,0 +1,4 @@
+celery
+redis
+-e /home/elnapoli/domotica/custom_modules/domotica-module
+

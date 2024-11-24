@@ -1,0 +1,7 @@
+services:
+  app:
+    build:
+      context: . 
+    container_name: app-container
+    volumes:
+      - /home/elnapoli/domotica/mis_tareas:/app/tasks  
