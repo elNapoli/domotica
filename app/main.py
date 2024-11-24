@@ -1,6 +1,21 @@
 import os
-import time
 import importlib.util
+import threading
+
+def ejecutar_tarea(task_file):
+    task_path = os.path.join('./tasks', task_file)
+
+    spec = importlib.util.spec_from_file_location(task_file, task_path)
+    task_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(task_module)
+
+    # Ejecutar la función main() si existe
+    if hasattr(task_module, 'main'):
+        print(f"Ejecutando la función main() de {task_file}")
+        task_module.main()
+    else:
+        print(f"No se encontró una función main() en {task_file}.")
+
 
 def ejecutar_tareas():
     # Ruta del directorio donde se encuentran las tareas
@@ -9,21 +24,10 @@ def ejecutar_tareas():
     # Lista de todos los archivos en el directorio 'tasks/' que son archivos Python (.py)
     task_files = [f for f in os.listdir(tasks_dir) if f.endswith('.py') and f != '__init__.py']
 
+    # Crear un hilo para cada tarea
     for task_file in task_files:
-        # Construye la ruta completa del archivo de la tarea
-        task_path = os.path.join(tasks_dir, task_file)
+        thread = threading.Thread(target=ejecutar_tarea, args=(task_file,))
+        thread.start()  # Inicia la ejecución de la tarea en paralelo
 
-        # Usa 'importlib' para cargar el módulo dinámicamente
-        spec = importlib.util.spec_from_file_location(task_file, task_path)
-        task_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(task_module)
-
-        # Si los archivos en tasks tienen alguna función o código que ejecutar, este se ejecutará ahora.
-        print(f"Ejecutando tarea: {task_file}")
-
-# Bucle que ejecuta las tareas cada 10 segundos
 if __name__ == "__main__":
-    while True:
-        print("Esperando 10 segundos para la próxima ejecución...")
-        time.sleep(10)
-
+    ejecutar_tareas()
