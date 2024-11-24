@@ -1,1 +1,5 @@
-build/
+build/custom_modules/domotica-module/domotica.egg-info/
+custom_modules/domotica-module/build/
+venv
+__pycache__
+custom_modules/domotica-module/domotica.egg-info/
