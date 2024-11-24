@@ -44,11 +44,7 @@ class Device:
     def publish_data(self, sensor_data):
         """Publicar los datos de temperatura y humedad a ThingsBoard"""
         if sensor_data:
-            try:
-                self.mqtt_client.publish(sensor_data)
-                print(f"Datos publicados: {sensor_data}")
-            except Exception as e:
-                print(f"Error al publicar los datos: {e}")
+            self.mqtt_client.publish(sensor_data)
 
     def run(self):
         """Ejecutar la lectura y publicación continua"""

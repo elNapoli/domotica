@@ -15,8 +15,6 @@ class ThingsBoardMQTT:
     # Callback para cuando el cliente recibe la respuesta de conexión (CONNACK)
     def on_connect(self, client, userdata, flags, reason_code):
         print(f"Conectado con código de resultado {reason_code}")
-        # Llamamos al método publish para enviar datos de temperatura y humedad
-        self.publish({'temperature': 22.5, 'humidity': 60.0})  # Publica valores demo
 
     # Callback para cuando el cliente recibe un mensaje PUBLISH
     def on_message(self, client, userdata, msg):
