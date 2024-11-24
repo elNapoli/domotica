@@ -1,4 +1,2 @@
-celery
-redis
 -e /custom_modules/domotica-module
 
